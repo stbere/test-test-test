@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Dosis&display=swap" rel="stylesheet">
+    <style>
+      body {
+        background-color: black;
+      }
+      .header {
+        background-color: grey;
+        text-align: center;
+        padding: 20px;
+        font-family: 'Dosis', sans-serif;
+        font-size: 36px;
+        color: white;
+      }
+      .welcome-message {
+        text-align: center;
+        font-family: 'Dosis', sans-serif;
+        font-size: 24px;
+        color: white;
+        padding-top: 50px;
+      }
+      .image {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 500px;
+      }
+      img {
+        display: block;
+        margin: 0 auto;
+      }
+      .guestbook-form {
+        text-align: center;
+        padding-top: 50px;
+      }
+      .rss-feed {
+        text-align: center;
+        padding-top: 50px;
+      }
+	  #rss-feed {
+  width: 80%;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.feed-item {
+  padding: 10px;
+  border-bottom: 1px solid grey;
+  list-style-type: none;
+}
+
+.feed-item-content {
+  font-size: 1.2em;
+}
+
+.feed-item-date {
+  font-size: 0.8em;
+  color: grey;
+}
+     </style>
+  </head>
+  <body>
+    <div class="header">Real-Time Stock Tracker</div>
+    <div class="welcome-message">Welcome to Group 3's Real Time Stock Tracker</div>
+    <div class="image">
+      <img src="https://media.istockphoto.com/id/1003433354/photo/simple-bar-and-line-chart-on-dark-backgorund.jpg?s=612x612&w=0&k=20&c=WUQ7eomQFtarz6j_ftTvDYzo_Zto4TMx7Qa87oFtBI0=" 
+	  alt="Stock Chart">
+    </div>
+    <div class="guestbook-form">
+      <form action="#">
+        <input type="text" placeholder="Enter your name">
+        <input type="submit" value="Sign My Guestbook">
+      </form>
+    </div>
+	
+<div class="rss-feed">
+  <h2>Twitter Feed</h2>
+  <div id="rss-feed">
+    <ul id="feed-list">
+      <head>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+          $(document).ready(function() {
+            $.ajax({
+              url: "https://rss.app/feeds/RBC4OTQQNicKgGsm.xml",
+              dataType: "xml",
+              success: function(data) {
+                var $xml = $(data);
+                var items = [];
+                $xml.find("item").each(function() {
+                  var $this = $(this);
+                  var title = $this.find("title").text();
+                  var link = $this.find("link").text();
+                  items.push("<li class='feed-item'><a href='" + link + "' class='feed-item-content'>" + title + "</a></li>");
+                });
+                $("#feed-list").html(items.join(""));
+              }
+            });
+          });
+        </script>
+      </head>
+    </ul>
+  </div>
+</div>
+  </body>
+</html>
