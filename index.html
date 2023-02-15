@@ -16,6 +16,14 @@
         font-size: 36px;
         color: white;
       }
+	    .input-container {
+    display: flex;
+    justify-content: center;
+  }
+
+  .input-container input {
+    margin: 10px;
+  }
       .welcome-message {
         text-align: center;
         font-family: 'Dosis', sans-serif;
@@ -46,6 +54,13 @@
   margin: 0 auto;
   text-align: left;
 }
+.rss-feed {
+  background-color: #f5f8fa;
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 50px;
+  box-shadow: 0 0 10px #222;
+}
 
 .feed-item {
   padding: 10px;
@@ -59,7 +74,44 @@
 
 .feed-item-date {
   font-size: 0.8em;
-  color: grey;
+  color: white;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.input-container input[type="text"],
+.input-container input[type="submit"] {
+  margin-right: 10px;
+}
+
+.output-container {
+  border: 1px solid grey;
+  border-radius: 10px;
+  background-color: #333333;
+  padding: 10px;
+}
+
+#output {
+  color: white;
+  background-color: #333333;
+  border: none;
+  resize: none;
+  font-size: 16px;
+  font-family: Arial, sans-serif;
 }
      </style>
   </head>
@@ -70,6 +122,13 @@
       <img src="https://media.istockphoto.com/id/1003433354/photo/simple-bar-and-line-chart-on-dark-backgorund.jpg?s=612x612&w=0&k=20&c=WUQ7eomQFtarz6j_ftTvDYzo_Zto4TMx7Qa87oFtBI0=" 
 	  alt="Stock Chart">
     </div>
+	<div class="input-container">
+   <input type="text" placeholder="Enter stock symbol or ticker">
+   <input type="submit" value="Submit">
+</div>
+<div class="output-container">
+    <textarea id="output" rows="10" cols="50"></textarea>
+  </div>
     <div class="guestbook-form">
       <form action="#">
         <input type="text" placeholder="Enter your name">
@@ -79,6 +138,7 @@
 	
 <div class="rss-feed">
   <h2>Twitter Feed</h2>
+  <h3>What are people saying about Crypto & the US Stock Market?</h3>
   <div id="rss-feed">
     <ul id="feed-list">
       <head>
@@ -106,5 +166,14 @@
     </ul>
   </div>
 </div>
+
+    <div class="footer">
+      <p>Copyright &copy; 2023</p>
+    </div>
+	
+    <script>
+      console.log("This project was created by Levi McCleod, Zac Lau, Steve Reed and Jared Hubert.
+	  We hope you thoroughly enjoy the material we are presenting. Thank you!");
+    </script>
   </body>
 </html>
