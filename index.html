@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!--I wanted a specific font. The link below helped me. We can change it later-->
     <link href="https://fonts.googleapis.com/css2?family=Dosis&display=swap" rel="stylesheet">
+	<!-- here we need to delete and use style.css for styling-->
     <style>
       body {
         background-color: black;
@@ -131,43 +132,95 @@
 
 .output-container {
   border: 1px solid grey;
-  border-radius: 10px;
+  width: 350px;
+  border-radius: 8px;
+  align-items: center
   background-color: #333333;
-  padding: 10px;
+  padding: 5px;
+  display: flex;
+  margin: 0 auto;
+  height: 200px;
 }
 
 #output {
   color: white;
   background-color: #333333;
-  border: none;
-  resize: none;
+  border: 2px solid grey;
+  text-align: center;
   font-size: 16px;
   font-family: Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: bold;
+  padding: 10px;
 }
+
+#output a {
+  color: #5bc0de;
+  text-decoration: none;
+  font-weight: bold;
+}
+
      </style>
   </head>
   <body>
     <div class="header">Real-Time Stock Tracker</div>
-    <div class="welcome-message">Welcome to Group 3's Real Time Stock Tracker</div>
+    <div class="welcome-message">Welcome to Group 2's Real Time Stock Tracker</div>
     <div class="image">
 	<!--We can change this image, I thought it was a decent placeholder for now. Maybe a cool .gif image instead?-->
       <img src="https://media.istockphoto.com/id/1003433354/photo/simple-bar-and-line-chart-on-dark-backgorund.jpg?s=612x612&w=0&k=20&c=WUQ7eomQFtarz6j_ftTvDYzo_Zto4TMx7Qa87oFtBI0=" 
 	  alt="Stock Chart">
     </div>
 <!--somewhere below here we will need to create a function so the text in the input container or drop-down calls the data for the user-->
+
 <div class="input-container">
-   <input type="text" placeholder="Enter stock symbol or ticker">
-   <input type="submit" value="Submit">
-</div>
-<!--here is the output container, basically just a big box (working on resizing) that should display the output-->
-<div class="output-container">
-    <textarea id="output" rows="10" cols="50"></textarea>
-  </div>
+        <input id="ticker-input" type="text" placeholder="Enter stock symbol or ticker">
+        <button id="submit-button" type="button">Submit</button>
+    </div>
+
+    <!--here is the output container, basically just a big box (working on resizing) that should display the output-->
+    <div class="output-container">
+        <textarea id="output" rows="10" cols="50"></textarea>
+    </div>
+
+    <script>
+        const submitButton = document.getElementById('submit-button');
+        const stockInput = document.getElementById('ticker-input');
+        const output = document.getElementById('output');
+
+        submitButton.addEventListener('click', () => {
+            const ticker = stockInput.value;
+            if (!ticker) {
+                output.value = 'Please enter a stock symbol or ticker';
+                return;
+            }
+            const url = `https://api.rss2json.com/v1/api.json?rss_url=https://finance.yahoo.com/rss/headline?s=${ticker}`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'ok') {
+                        const stockData = data.items[0];
+                        const outputText = `
+                            Title: ${stockData.title}
+                            Description: ${stockData.description}
+                            Link: ${stockData.link}
+                        `;
+                        output.value = outputText;
+                    } else {
+                        output.value = `Error: ${data.message}`;
+                    }
+                })
+                .catch(error => {
+                    output.value = `Error: ${error}`;
+                });
+        });
+    </script>
+
     <div class="guestbook-form">
-      <form action="#">
-        <input type="text" placeholder="Enter your name">
-        <input type="submit" value="Sign My Guestbook">
-      </form>
+        <form action="#">
+            <input type="text" placeholder="Enter your name">
+            <input type="submit" value="Sign My Guestbook">
+        </form>
     </div>
 
 	<!--Here I wanted to add a RSS feed with Twitter posts with #cryptocurrency and #stockmarket hashtags to liven up the page-->
@@ -182,7 +235,7 @@
         <script> 
           $(document).ready(function() {
             $.ajax({
-              url: "https://rss.app/feeds/RBC4OTQQNicKgGsm.xml", 
+              url: "https://rss.app/feeds/MTR9pEhpM8FxiSjv.xml", 
               dataType: "xml",
               success: function(data) {
                 var $xml = $(data);
