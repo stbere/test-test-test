@@ -165,20 +165,50 @@
   height: 400px;
 }
 
+.text-container {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  text-align: center;
+  color: white;
+  margin: 20px;
+}
+
      </style>
 </head>
 
 <body>
- <div class="header">TCC/eDX Data Analytics: Group 2 Stock Tracker</div>
- <div class="welcome-message">Welcome to Group 2's Stock Tracker!</div><br>
- <br>
+<div class="header">TCC/eDX Data Analytics: Group 2 Stock Tracker</div>
+<br>
+<div class="text-container">
+  <h1><p>Welcome to our website! &#128200;</p></h1>
+  <p>Brought to you by Levi, Jarod, Zac and Steve</p>
+</div>
+
+<div class="text-container">
+<br>
+<p>.</p>
+<br>
+<p>.</p>
+<br>
+<p>.</p>
+<br>
+<p>.</p>
+<br>
+</div>
+<br>
+
 <img src="https://gifdb.com/images/high/colorful-running-nyan-cat-52txj31jpil7u350.webp" alt="Nyan Cat" width="100" height="75">
-<div class="welcome-message">Let's dive right in by looking at Big Tech's Top 3</div><br>
+<br>
+<br>
+<div class="text-container">
+  <h2><p>&#128640; Let's dive right in &#128640;</p></h2>
+  <p>We'll compare crypo vs. nyse stocks</p>
 </div>
 
 <br>
 
 <!--Alpha Vantage API call-->
+<!--Fun fact Alpha Vantage gave me free premium academic account for high-volume API calls-->
 
 <canvas id="myChart"></canvas>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -256,8 +286,11 @@
 
 <br>
 
-<div class="welcome-message">Explore Stock Market info using the box below:</div>
-<div class="welcome-message">Examples: NVDA, AMD, GME, BLOK </div><br>
+<div class="text-container">
+  <h3><p>Explore Stock Market info using the box below!</p></h3>
+  <p>Examples: <b>AAPL</b> - NVDA - <b>GOOG</b> - AMD - <b>GME</b> - BLOK - <b>AMZN</b> - MSFT</p>
+</div>
+
 <div class="input-container">
     <input id="ticker-input" type="text" placeholder="Enter stock symbol or ticker">
     <button id="submit-button" type="button">Submit</button>
@@ -321,6 +354,7 @@
 <div class="rss-feed">
   <h2>News Feed</h2>
   <h3>What are people saying about Crypto & the US Stock Market?</h3>
+  <!-- I used xml here bc it is easier to read in this case-->
   <div id="rss-feed">
     <ul id="feed-list">
       <head>
