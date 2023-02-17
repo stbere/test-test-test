@@ -160,9 +160,15 @@
   font-weight: bold;
 }
 
+#myChart {
+  width: 800px;
+  height: 400px;
+}
+
      </style>
-  </head>
-  <body>
+</head>
+
+<body>
     <div class="header">Real-Time Stock Tracker</div>
     <div class="welcome-message">Welcome to Group 2's Real Time Stock Tracker</div>
     <div class="image">
@@ -170,19 +176,76 @@
       <img src="https://media.istockphoto.com/id/1003433354/photo/simple-bar-and-line-chart-on-dark-backgorund.jpg?s=612x612&w=0&k=20&c=WUQ7eomQFtarz6j_ftTvDYzo_Zto4TMx7Qa87oFtBI0=" 
 	  alt="Stock Chart">
     </div>
+	
+<!--Alpha Vantage API call here, Q9222ZCGAD5YT9BS-->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+	<canvas id="myChart" width="800" height="400"></canvas>
+    <script>
+      // Get the stock data using AJAX
+      var xmlhttp = new XMLHttpRequest();
+      var url = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=MSFT&interval=5min&apikey=Q9222ZCGAD5YT9BS";
+
+      xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          var data = JSON.parse(this.responseText);
+          var timeSeries = data["Time Series (5min)"];
+          var labels = [];
+          var values = [];
+
+          // Extract the labels and values from the time series data
+          for (var key in timeSeries) {
+            if (timeSeries.hasOwnProperty(key)) {
+              labels.push(key);
+              values.push(parseFloat(timeSeries[key]["4. close"]));
+            }
+          }
+
+          // Create the chart using Chart.js
+          var ctx = document.getElementById('myChart').getContext('2d');
+          var chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+              labels: labels,
+              datasets: [{
+                label: 'MSFT',
+                data: values,
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1
+              }]
+            },
+            options: {
+              scales: {
+                xAxes: [{
+                  type: 'time',
+                  time: {
+                    unit: 'minute'
+                  }
+                }]
+              }
+            }
+          });
+        }
+      };
+
+      xmlhttp.open("GET", url, true);
+      xmlhttp.send();
+</script>
+
 <!--somewhere below here we will need to create a function so the text in the input container or drop-down calls the data for the user-->
 
 <div class="input-container">
-        <input id="ticker-input" type="text" placeholder="Enter stock symbol or ticker">
-        <button id="submit-button" type="button">Submit</button>
-    </div>
+    <input id="ticker-input" type="text" placeholder="Enter stock symbol or ticker">
+    <button id="submit-button" type="button">Submit</button>
+</div>
 
     <!--here is the output container, basically just a big box (working on resizing) that should display the output-->
-    <div class="output-container">
-        <textarea id="output" rows="10" cols="50"></textarea>
-    </div>
+<div class="output-container">
+  <textarea id="output" rows="10" cols="50"></textarea>
+</div>
 
-    <script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
         const submitButton = document.getElementById('submit-button');
         const stockInput = document.getElementById('ticker-input');
         const output = document.getElementById('output');
@@ -214,16 +277,16 @@
                     output.value = `Error: ${error}`;
                 });
         });
-    </script>
+</script>
 
-    <div class="guestbook-form">
-        <form action="#">
-            <input type="text" placeholder="Enter your name">
-            <input type="submit" value="Sign My Guestbook">
-        </form>
-    </div>
-
-	<!--Here I wanted to add a RSS feed with Twitter posts with #cryptocurrency and #stockmarket hashtags to liven up the page-->
+<div class="guestbook-form">
+ <form action="#">
+   <input type="text" placeholder="Enter your name">
+   <input type="submit" value="Sign My Guestbook">
+ </form>
+</div>
+	
+<!--Here I wanted to add a RSS feed with Twitter posts with #cryptocurrency and #stockmarket hashtags to liven up the page-->
 
 <div class="rss-feed">
   <h2>Twitter Feed</h2>
@@ -258,12 +321,12 @@
 </div>
 
 <!--I forgot to add the style formatting for the div class, so this doesn't show up at the bottom yet. Can we even copyright this?-->
-    <div class="footer">
-      <p>Copyright &copy; 2023</p>
-    </div>
+<div class="footer">
+ <p>Copyright &copy; 2023</p>
+</div>
 	
-    <script>
-      console.log("This project was created by Levi McCleod, Zac Lau, Steve Reed and Jared Hubert. We hope you thoroughly enjoy the material we are presenting. Thank you!");
-    </script>
-  </body>
+<script>
+    console.log("This project was created by Levi McCleod, Zac Lau, Steve Reed and Jared Hubert. We hope you thoroughly enjoy the material we are presenting. Thank you!");
+  </script>
+ </body>
 </html>
