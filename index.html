@@ -136,7 +136,7 @@
   border: 1px solid grey;
   width: 350px;
   border-radius: 8px;
-  align-items: center
+  align-items: left
   background-color: #333333;
   padding: 5px;
   display: flex;
@@ -148,7 +148,7 @@
   color: white;
   background-color: #333333;
   border: 2px solid grey;
-  text-align: center;
+  text-align: left;
   font-size: 16px;
   font-family: Arial, sans-serif;
   line-height: 1.5;
@@ -175,6 +175,10 @@
   margin: 20px;
 }
 
+.popup-img {
+    max-width: 400px;
+}
+
      </style>
 </head>
 
@@ -185,7 +189,7 @@
 <br>
 <div class="text-container">
   <h1><p>Welcome to Project 2's website! &#128200;</p></h1>
-  <p>Brought to you by Levi, Jarod, Zac and Steve</p>
+  <p>Brought to you by Levi, Jared, Zac and Steve</p>
 </div>
 <br>
 <img src="https://gifdb.com/images/high/colorful-running-nyan-cat-52txj31jpil7u350.webp" alt="Nyan Cat" width="100" height="75">
@@ -289,7 +293,9 @@
 
 <div class="text-container">
   <h3><p>Explore the latest Stock Market info using the box below!</p></h3>
-  <p>Examples: <b>AAPL</b> - NVDA - <b>GOOG</b> - AMD - <b>GME</b> - BLOK - <b>AMZN</b> - MSFT</p>
+ <br>
+  <p>&#128200; Stock Market Ticker Examples:</p> 
+  <p><b>AAPL</b> - NVDA - <b>GOOG</b> - AMD - <b>GME</b> - BLOK - <b>AMZN</b> - MSFT - <b>COIN</b></p>
 </div>
 
 <div class="input-container">
@@ -303,63 +309,89 @@
   <textarea id="output" rows="10" cols="50"></textarea>
 </div>
 
-<!--This is how the input and output containers work, another beautiful API-->
+<!--This is how the input & output containers work the data, API is from yahoo finance link in const url-->
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-        const submitButton = document.getElementById('submit-button');
-        const stockInput = document.getElementById('ticker-input');
-        const output = document.getElementById('output');
+    const submitButton = document.getElementById('submit-button');
+    const stockInput = document.getElementById('ticker-input');
+    const output = document.getElementById('output');
 
-        submitButton.addEventListener('click', () => {
-            const ticker = stockInput.value;
-            if (!ticker) {
-                output.value = 'Please enter a stock symbol or ticker';
-                return;
-            }
-            const url = `https://api.rss2json.com/v1/api.json?rss_url=https://finance.yahoo.com/rss/headline?s=${ticker}`;
+    submitButton.addEventListener('click', () => {
+        const ticker = stockInput.value;
+        if (!ticker) {
+            output.value = 'Please enter a stock symbol or ticker';
+            return;
+        }
+        const url = `https://api.rss2json.com/v1/api.json?rss_url=https://finance.yahoo.com/rss/headline?s=${ticker}`;
 
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.status === 'ok') {
-                        const stockData = data.items[0];
-                        const outputText = `
-                            Title: ${stockData.title}
-                            Description: ${stockData.description}
-                            Link: ${stockData.link}
-                        `;
-                        output.value = outputText;
-                    } else {
-                        output.value = `Error: ${data.message}`;
-                    }
-                })
-                .catch(error => {
-                    output.value = `Error: ${error}`;
-                });
-        });
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'ok') {
+                    const stockData = data.items[0];
+                    const outputText = `Title: ${stockData.title}\nDescription: ${stockData.description}\nLink: <a href="${stockData.link}" target="_blank">${stockData.link}</a>`;
+                    output.innerHTML = outputText;
+                } else {
+                    output.value = `Error: ${data.message}`;
+                }
+            })
+            .catch(error => {
+                output.value = `Error: ${error}`;
+            });
+    });
 </script>
 
-<!--Nostalig purposes only, non-functioning for now-->
+<!--Nostalgic purposes only, non-functioning for now-->
 
 <div class="guestbook-form">
- <form action="#">
-   <input type="text" placeholder="Enter your name">
-   <input type="submit" value="Sign My Guestbook">
- </form>
+  <form action="#">
+    <input type="text" placeholder="Enter your name">
+    <input type="submit" value="Sign My Guestbook" id="guestbook-submit">
+  </form>
 </div>
-	
+
+<script>
+  const guestbookSubmit = document.getElementById('guestbook-submit');
+
+  guestbookSubmit.addEventListener('click', (event) => {
+    event.preventDefault();
+    const width = 450;
+const height = 300;
+const left = (window.innerWidth - width) / 2;
+const top = (window.innerHeight - height) / 2;
+const popup = window.open('', 'popup', `width=${width}, height=${height}, left=${left}, top=${top}`);
+popup.document.title = "Recorded to nothing!! idk how";
+    const img = new Image();
+    img.src = 'https://thumbs.dreamstime.com/b/senior-man-waving-happily-8936027.jpg'; // replace with your image URL
+    img.style.width = '350px'; // set the image width
+    img.style.margin = '0 auto'; // set the image to display as a block
+    const text = document.createElement('p');
+    text.innerText = 'Thanks for stopping by!'; // add the text content
+    text.style.textAlign = 'center'; // center the text
+    popup.document.body.appendChild(img);
+    popup.document.body.appendChild(text);
+    setTimeout(function() {
+      popup.close();
+    }, 3000); // close the popup after 3 seconds
+  });
+</script>
+
 <!--Here I wanted to add a RSS feed with Twitter posts with #cryptocurrency and #stockmarket hashtags to liven up the page-->
 <!--But currently only display news from Investopedia. Change url:"xml" with rss.app link-->
+<!--Used $.ajax function, stands for asynchronous javascript and xml so i could use xlm file in url-->
 
 <div class="rss-feed">
   <h2>News Feed</h2>
   <h3>What are people saying about Crypto & the US Stock Market?</h3>
+  
   <!-- I used xml here bc it is easier to read in this case-->
+  
   <div id="rss-feed">
     <ul id="feed-list">
       <head>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		
         <script> 
           $(document).ready(function() {
             $.ajax({
