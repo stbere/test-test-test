@@ -3,8 +3,9 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!--I wanted a specific font. The link below helped me. We can change it later-->
     <link href="https://fonts.googleapis.com/css2?family=Dosis&display=swap" rel="stylesheet">
-    <style>
+    <style><!--I crammed all the style and formatting here just to get started. I will clean this up into a style.css file (hopefully) -->
       body {
         background-color: black;
       }
@@ -49,10 +50,40 @@
         text-align: center;
         padding-top: 50px;
       }
-	  #rss-feed {
-  width: 80%;
-  margin: 0 auto;
-  text-align: left;
+.rss-feed {
+  background-color: #f5f8fa;
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.rss-feed h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0 0 10px;
+}
+
+.rss-feed h3 {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0 0 20px;
+}
+
+.feed-item {
+  margin-bottom: 20px;
+  list-style: none;
+}
+
+.feed-item-content {
+  display: block;
+  color: #1da1f2;
+  font-size: 16px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.feed-item-content:hover {
+  text-decoration: underline;
 }
 .rss-feed {
   background-color: #f5f8fa;
@@ -118,15 +149,18 @@
   <body>
     <div class="header">Real-Time Stock Tracker</div>
     <div class="welcome-message">Welcome to Group 3's Real Time Stock Tracker</div>
-    <div class="welcome-message">Brought to you by Levi, Jared, Steve and Zac</div>
     <div class="image">
+	<!--We can change this image, I thought it was a decent placeholder for now. Maybe a cool .gif image instead?-->
       <img src="https://media.istockphoto.com/id/1003433354/photo/simple-bar-and-line-chart-on-dark-backgorund.jpg?s=612x612&w=0&k=20&c=WUQ7eomQFtarz6j_ftTvDYzo_Zto4TMx7Qa87oFtBI0=" 
 	  alt="Stock Chart">
     </div>
-	<div class="input-container">
+<!--somewhere below here we will need to create a function so the text in the input container or drop-down calls the data for the user-->
+<div class="input-container">
    <input type="text" placeholder="Enter stock symbol or ticker">
    <input type="submit" value="Submit">
+   <//--- 
 </div>
+<!--here is the output container, basically just a big box (working on resizing) that should display the output-->
 <div class="output-container">
     <textarea id="output" rows="10" cols="50"></textarea>
   </div>
@@ -136,7 +170,9 @@
         <input type="submit" value="Sign My Guestbook">
       </form>
     </div>
-	
+
+	<!--Here I wanted to add a RSS feed with #cryptocurrency and #stockmarket hashtags to liven up the page.-->
+
 <div class="rss-feed">
   <h2>Twitter Feed</h2>
   <h3>What are people saying about Crypto & the US Stock Market?</h3>
@@ -144,10 +180,12 @@
     <ul id="feed-list">
       <head>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script>
+        <script> 
+		<!--ajax stands for asynchronious javascript in xml, it loads the data in the background w/out reloading our page-->
           $(document).ready(function() {
             $.ajax({
-              url: "https://rss.app/feeds/RBC4OTQQNicKgGsm.xml",
+			<!-- url is my rss feed from that webpage. i had to create an account to use the link-->
+              url: "https://rss.app/feeds/RBC4OTQQNicKgGsm.xml", 
               dataType: "xml",
               success: function(data) {
                 var $xml = $(data);
@@ -156,6 +194,7 @@
                   var $this = $(this);
                   var title = $this.find("title").text();
                   var link = $this.find("link").text();
+				  <!--I would like to add code here to include the Twitter profile pic..still working on it..-->
                   items.push("<li class='feed-item'><a href='" + link + "' class='feed-item-content'>" + title + "</a></li>");
                 });
                 $("#feed-list").html(items.join(""));
@@ -168,13 +207,13 @@
   </div>
 </div>
 
+<!--I forgot to add the style formatting for the div class, so this doesn't show up at the bottom yet. Can we even copyright this?-->
     <div class="footer">
       <p>Copyright &copy; 2023</p>
     </div>
 	
     <script>
-      console.log("This project was created by Levi McCleod, Zac Lau, Steve Reed and Jared Hubert.
-	  We hope you thoroughly enjoy the material we are presenting. Thank you!");
+      console.log("This project was created by Levi McCleod, Zac Lau, Steve Reed and Jared Hubert. We hope you thoroughly enjoy the material we are presenting. Thank you!");
     </script>
   </body>
 </html>
