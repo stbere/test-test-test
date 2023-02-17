@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!--I wanted a specific font. The link below helped me. We can change it later-->
     <link href="https://fonts.googleapis.com/css2?family=Dosis&display=swap" rel="stylesheet">
-    <style><!--I crammed all the style and formatting here just to get started. I will clean this up into a style.css file (hopefully) -->
+    <style>
       body {
         background-color: black;
       }
@@ -158,7 +158,6 @@
 <div class="input-container">
    <input type="text" placeholder="Enter stock symbol or ticker">
    <input type="submit" value="Submit">
-   <//--- 
 </div>
 <!--here is the output container, basically just a big box (working on resizing) that should display the output-->
 <div class="output-container">
@@ -171,7 +170,7 @@
       </form>
     </div>
 
-	<!--Here I wanted to add a RSS feed with #cryptocurrency and #stockmarket hashtags to liven up the page.-->
+	<!--Here I wanted to add a RSS feed with Twitter posts with #cryptocurrency and #stockmarket hashtags to liven up the page-->
 
 <div class="rss-feed">
   <h2>Twitter Feed</h2>
@@ -181,10 +180,8 @@
       <head>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script> 
-		<!--ajax stands for asynchronious javascript in xml, it loads the data in the background w/out reloading our page-->
           $(document).ready(function() {
             $.ajax({
-			<!-- url is my rss feed from that webpage. i had to create an account to use the link-->
               url: "https://rss.app/feeds/RBC4OTQQNicKgGsm.xml", 
               dataType: "xml",
               success: function(data) {
